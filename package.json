@@ -21,5 +21,9 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "author": {
+    "author":"Luka Mohar",
+    "contact":"lukam@nym.hush.com"
+  }
 }
