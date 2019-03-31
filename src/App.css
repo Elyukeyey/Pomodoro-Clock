@@ -1,5 +1,6 @@
 body {
   background-color: #3d3d3d;
+  text-transform: capitalize;
 }
 h2 {
   font-size: 50px;
@@ -12,11 +13,22 @@ button {
 button:hover {
   background-color: #666;
 }
-.counter-round {
-  width: 350px;
-  height: 350px;
+.counter-circle {
+ /* border: 2px solid #aaa;*/
+  width: 300px;
+  height: 300px;
   margin-top: 50px;
   margin: auto;
+  border-radius: 100%;
+  box-shadow:
+  inset 60px 0 120px #1d1d1d,
+  inset -60px 0 120px #4d4d4d,
+  0px 0px 15px 2px #aaa; 
+}
+.centered-pos {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 svg {
   position: absolute;
@@ -43,10 +55,62 @@ svg {
   border-top-right-radius: 50px;
   border-bottom-right-radius: 50px;
 }
+.round {
+  margin: 0px 15px;
+  border: 2px solid #aaa;
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
+
+}
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
 h3 {
   text-transform: capitalize;
+}
+.glowing {
+  animation-name: glowing;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in;
+}
+@keyframes glowing {
+  0% {
+    box-shadow:
+    inset 60px 0 120px #1d1d1d,
+    inset -60px 0 120px #4d4d4d,
+    0px 0px 15px 2px #aaa; 
+  }
+  50% {
+    box-shadow:
+    inset 60px -60px 120px #4d4d4d,
+    inset 60px -60px 120px #1a1a1a,
+    0px 0px 25px 4px #fff; 
+  }
+100% {
+  box-shadow:
+  inset 60px 0 120px #1d1d1d,
+  inset -60px 0 120px #4d4d4d,
+  0px 0px 15px 2px #aaa; 
+  }
+}
+/*
+snippets:
+*/
+.test-border {
+  border: 5px solid #000;
+}
+.topmar {
+  margin-top: 10px;
+}
+.bottommar {
+  margin-bottom: 10px;
+}
+.leftmar {
+  margin-left: 10px;
+}
+.rightmar {
+  margin-right: 10px;
 }
