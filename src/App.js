@@ -5,8 +5,8 @@ class SetTimer extends Component {
   render() {
     return (
       <div className="text-center">
-        <div id={`${this.props.name}-label`} className="text-center text-white label"><h4>{this.props.name} length</h4></div>
-        <div className="center text-center text-white"><h4>{this.props.iniLen/60}:00</h4></div>
+        <div className="text-center text-white label"><h4 id={`${this.props.name}-label`}>{this.props.name} length</h4></div>
+        <div className="center text-center text-white"><h4 id={`${this.props.name}-length`}>{this.props.iniLen/60}</h4></div>
         <button className="left" onClick={this.props.decr} id={`${this.props.name}-decrement`} value={this.props.name}><i className="fas fa-minus"></i></button>
         <button className="right" onClick={this.props.incr} id={`${this.props.name}-increment`} value={this.props.name}><i className="fas fa-plus"></i></button>
       </div>
@@ -29,7 +29,7 @@ class Counter extends Component {
           <button className="round" value={(this.props.action) ? 'pause' : 'play'} onClick={this.props.timerAction} id="start_stop">{
             (this.props.action)? <i className="fas fa-pause"></i> : <i className="fas fa-play"></i>  
             }</button>
-          <button className="round" onClick={this.props.timerAction}><i className="fas fa-sync-alt"></i></button>
+          <button className="round" onClick={this.props.timerAction} id="reset"><i className="fas fa-sync-alt"></i></button>
           {/*<button className="round" value="pause" onClick={this.props.timerAction}><i className="fas fa-pause"></i></button>*/}
         </div>
       </div>
