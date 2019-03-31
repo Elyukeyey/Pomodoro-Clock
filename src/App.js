@@ -25,9 +25,12 @@ class Counter extends Component {
           </div>
         </div>
         <div className="topmar">
-          <button className="round" value="play" onClick={this.props.timerAction} id="start_stop"><i className="fas fa-play"></i></button>
-          <button className="round" onClick={this.props.timerAction}><i className="fas fa-power-off"></i></button>
-          <button className="round" value="pause" onClick={this.props.timerAction}><i className="fas fa-pause"></i></button>
+          {/*<button className="round" value="play" onClick={this.props.timerAction} id="start_stop"><i className="fas fa-play"></i></button>*/}
+          <button className="round" value={(this.props.action) ? 'pause' : 'play'} onClick={this.props.timerAction} id="start_stop">{
+            (this.props.action)? <i className="fas fa-pause"></i> : <i className="fas fa-play"></i>  
+            }</button>
+          <button className="round" onClick={this.props.timerAction}><i className="fas fa-sync-alt"></i></button>
+          {/*<button className="round" value="pause" onClick={this.props.timerAction}><i className="fas fa-pause"></i></button>*/}
         </div>
       </div>
     )
@@ -160,6 +163,7 @@ componentDidMount() {
             name={e.name} 
             iniLen={e.iniLen}
             renderTime={this.renderTime}
+            play={this.state.action}
             incr={this.incr}
             decr={this.decr}
             />))}
