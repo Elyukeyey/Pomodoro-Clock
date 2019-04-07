@@ -13,6 +13,9 @@ button {
 button:hover {
   background-color: #666;
 }
+i {
+  pointer-events: none;
+}
 .counter-circle {
  /* border: 2px solid #aaa;*/
   width: 300px;
@@ -29,11 +32,6 @@ button:hover {
   position: relative;
   top: 50%;
   transform: translateY(-50%);
-}
-svg {
-  position: absolute;
-  z-index: 13;
-  transform: translateX(-50%);
 }
 .main {
   max-width: 600px;

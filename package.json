@@ -22,5 +22,6 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "author": "Luka Mohar"
+  "author": "Luka Mohar",
+  "homepage": "http://luka.isms.si/tomato"
 }
