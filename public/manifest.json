@@ -1,8 +1,10 @@
 {
   "short_name": "Pomodoro Clock",
   "name": "fCC Front end libraries Project: Pomodoro Clock",
-  "start_url": ".",
+  "start_url": "./tomato",
+  "homepage":"http://lukam.isms.si/tomato",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "author":"Luka Mohar"
 }

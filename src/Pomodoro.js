@@ -1,38 +1,7 @@
 import React, { Component } from 'react';
-import './App.css';
-
-class SetTimer extends Component {
-  render() {
-    return (
-      <div className="text-center">
-        <div id={`${this.props.name}-label`} className="text-center text-white label"><h4>{this.props.name} length</h4></div>
-        <div className="center text-center text-white"><h4>{this.props.iniLen/60}:00</h4></div>
-        <button className="left" onClick={this.props.decr} id={`${this.props.name}-decrement`} value={this.props.name}><i className="fas fa-minus"></i></button>
-        <button className="right" onClick={this.props.incr} id={`${this.props.name}-increment`} value={this.props.name}><i className="fas fa-plus"></i></button>
-      </div>
-    )
-  }
-}
-
-class Counter extends Component {
-  render() {
-    return(
-      <div id="" className="text-center counter-round">
-        <div id="" className={`counter-circle${(this.props.action===true)? ' glowing' : ''}`}>
-          <div id="" className="centered-pos">
-            <div className="text-white font-weight-bold"><h2 id="timer-label">{(this.props.session) ? this.props.sessions[0].name : this.props.sessions[1].name }</h2></div>
-            <div className="text-white font-weight-bold"><h2 id="time-left">{this.props.renderTime(this.props.duration)}</h2></div>
-          </div>
-        </div>
-        <div className="topmar">
-          <button className="round" value="play" onClick={this.props.timerAction} id="start_stop"><i className="fas fa-play"></i></button>
-          <button className="round" onClick={this.props.timerAction}><i className="fas fa-power-off"></i></button>
-          <button className="round" value="pause" onClick={this.props.timerAction}><i className="fas fa-pause"></i></button>
-        </div>
-      </div>
-    )
-  }
-}
+import SetTimer from './components/SetTimer';
+import Counter from './components/Counter';
+import './Core.css';
 
 class Pomodoro extends Component {
   state = {
@@ -46,15 +15,15 @@ class Pomodoro extends Component {
         iniLen: 300,
       }
     ],
-    //name: 'session',
     session: true,  // session or brake switch
-    duration: 0, // basis for countdown
-    max: 3600, // max
-    min: 60, // min
-    action: false // animation
+    duration: 0, // Countdown timer value
+    max: 3600, // max 60 min
+    min: 60, // min 1 min
+    action: false // animation & increase/decrease time
   }
   intervalID = 0;
   audio = React.createRef();
+
 // set Session and Break values //
   addOne = (val) => {
     const { iniLen } = val;
@@ -73,7 +42,7 @@ class Pomodoro extends Component {
     const newArr = [s, b];
     this.setState({ 
       sessions: newArr,
-      duration: (s.name === e.target.value && this.state.session) ? newArr[0].iniLen : this.state.duration
+      duration: (!this.state.action) ? newArr[0].iniLen : this.state.duration
     });
   }
   decr = (e) => {
@@ -82,7 +51,7 @@ class Pomodoro extends Component {
     const newArr = [s, b];
     this.setState({ 
       sessions: newArr,
-      duration: (this.state.session) ? newArr[0].iniLen : newArr[1].iniLen
+      duration: (!this.state.action) ? newArr[0].iniLen : this.state.duration
     });
 
   }
@@ -94,15 +63,12 @@ class Pomodoro extends Component {
       action:false
     });
   }
-  renderTime = (time) => {
+  renderTime = (time) => { // make fancy time 5:11 -> 05:11
     let minutes = Math.floor(time / 60);
     let seconds = Math.floor(time % 60);
     minutes = (minutes < 10) ? '0' + minutes : minutes;
     seconds = (seconds < 10) ? '0' + seconds : seconds;
     return minutes + ':' + seconds;
-  }
-  playTime = () => {
-
   }
   timerAction = (e) => {
     let time;
@@ -110,23 +76,22 @@ class Pomodoro extends Component {
     (e.target !== undefined) ? i = e.target.value : i = e;
     switch(i) {
       case 'play':
-      if(this.intervalID === 0) {
-        this.intervalID = setInterval(() => {
-          if (this.state.duration > 0) {
-          time = this.state.duration - 1;
-          this.setState({ duration: time
-          });
-          } else {
-            this.audio.current.play();
-            this.clearTime();
-            this.makeSwitch();
-            this.timerAction('play');
-          }
-        }, 1000);
         this.setState({
           action: true
         });
-      }
+        if(this.intervalID === 0) {
+          this.intervalID = setInterval(() => {
+            if (this.state.duration > 0) {
+              time = this.state.duration - 1;
+              this.setState({ duration: time });
+            } else {
+              this.audio.current.play();
+              this.clearTime();
+              this.makeSwitch();
+              this.timerAction('play');
+            }
+          }, 1000);
+        }
       break;
       case 'pause':
         this.clearTime();
@@ -160,6 +125,7 @@ componentDidMount() {
             name={e.name} 
             iniLen={e.iniLen}
             renderTime={this.renderTime}
+            play={this.state.action}
             incr={this.incr}
             decr={this.decr}
             />))}
