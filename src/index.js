@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import Pomodoro from './Pomodoro';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<Pomodoro />, document.getElementById('root'));
